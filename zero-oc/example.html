@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+
+      h1 {
+        color: white;
+        background-color: #201F25;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+      <section>
+          <h1>书签</h1>
+          <ul>
+            <li>
+              <input id="search" type="text"></input><button onclick="search()">搜索</button>
+            </li>
+            <li>
+              <a href="https://github.com/explore">Github</a>
+              <a href="https://readhub.cn/topics">Readhub</a>
+              <a href="https://juejin.im/">掘金</a>
+            </li>
+          </ul>
+      </section>
+
+      <section>
+          <h1>Web调用Native</h1>
+          <ul>
+              <li>
+                <a href="zero://www.aliren.group/doc?name=xxx&age=18">打开相册</a>
+              </li>
+              <li>
+                <button onclick="openCamera()">打开相机</button>
+                <label id="alert">xxxxxx</label>
+              </li>
+              <li>
+                <button onclick="shotScreen()">截图</button>
+              </li>
+            </ul>
+      </section>
+  </body>
+  <script>
+      /* 10处理中 11处理成功*/
+      var zCode = 10;
+      var zMsg = "";
+      
+      var name = "zxj";
+      var age = "18";
+      
+    window.onload = function() {
+        
+    }
+
+    document.onkeydown = function(event) {
+      var e = event || window.event || arguments.callee.caller.arguments[0];
+      console.log(e.keyCode);
+    }
+
+    function search() {
+      var content = document.getElementById("search").value;
+      window.location.href= "https://magi.com/search?q=" + content;
+    }
+
+  function shotScreen() {
+      window.location.href = "zero://test/shotscreen?name=zxj";
+  }
+  
+    
+    // didLoad
+    function zeroGetData() {
+        return JSON.stringify(
+        {"zCode": zCode, "zMsg":zMsg,
+            "zData": {
+                "name": name,
+                "age": age
+            }
+        });
+    }
+    
+    // Native执行成功通知给网页
+    function zeroCallback(input, funName, output) {
+        
+        var label = document.getElementById("alert");
+        label.innerText = input + funName + output;
+        
+        if (funName === "/photos") {
+            
+        } else if (funName === "/camera") {
+            
+        } else if (funName === "/base64") {
+            
+        } else if (funName === "/shotscreen") {
+            
+        } else  {
+            
+        }
+    }
+    
+    
+    // 解码Base64
+    
+    
+    
+    function openCamera() {
+        var label = document.getElementById("alert");
+        label.innerText = "bbbbbbb";
+        window.location.href = "zero://test/base64?name=zxj";
+    }
+  
+    
+  
+    function invokeOCMethod() {
+        window.webkit.messageHandlers.zero.postMessage('body');
+    }
+  
+    
+  </script>
+</html>
